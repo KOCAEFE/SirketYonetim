@@ -9,5 +9,9 @@ namespace SirketYonetim.Entities
         public decimal ProductPrice { get; set; }
 
         public int ProductStock { get; set; }
+        public Customer Customer { get; set; }
+
+        // Bir ürün birden fazla siparişle ilişkili olabilir
+        public ICollection<Order> Orders { get; set; }
     }
 }
