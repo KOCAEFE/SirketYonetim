@@ -1,0 +1,8 @@
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.AssemblyInfoInputs.cache
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.AssemblyInfo.cs
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.csproj.CoreCompileInputs.cache
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.RazorAssemblyInfo.cache
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.RazorAssemblyInfo.cs
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.sourcelink.json
