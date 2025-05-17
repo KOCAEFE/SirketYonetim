@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SirketYonetim")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a4ac87798283e4689c083f2e618f9dad0a35f69")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+561488dfd0f0b0ed1e099051cf31aa48b3f3d70d")]
 [assembly: System.Reflection.AssemblyProductAttribute("SirketYonetim")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SirketYonetim")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

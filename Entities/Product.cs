@@ -8,6 +8,6 @@ namespace SirketYonetim.Entities
 
         public decimal ProductPrice { get; set; }
 
-        public int ProducStock { get; set; }
+        public int ProductStock { get; set; }
     }
 }
