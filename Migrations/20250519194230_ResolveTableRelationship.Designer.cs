@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SirketYonetim.Data;
 
@@ -11,9 +12,11 @@ using SirketYonetim.Data;
 namespace SirketYonetim.Migrations
 {
     [DbContext(typeof(SirketYonetimContext))]
-    partial class SirketYonetimContextModelSnapshot : ModelSnapshot
+    [Migration("20250519194230_ResolveTableRelationship")]
+    partial class ResolveTableRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
