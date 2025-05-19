@@ -15,7 +15,7 @@ namespace SirketYonetim.Entities
         public Customer Customer { get; set; }
 
         
-        public ICollection<Product> Products { get; set; }
+        public ICollection<OrderProduct> OrderProducts { get; set; }
 
 
     }
