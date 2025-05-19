@@ -8,7 +8,7 @@ namespace SirketYonetim.Repositories.Abstract
 
         Task AddAsync(T entity);
 
-        Task UpdateAsync(T entity);
+        Task Update(T entity);
 
         Task Delete(T entity);
 

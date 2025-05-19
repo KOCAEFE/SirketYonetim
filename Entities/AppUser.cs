@@ -7,5 +7,9 @@ namespace SirketYonetim.Entities
         public string? FullName { get; set; }
 
         public string? ImageUrl { get; set; }
+
+        public Employee? Employee { get; set; }
+
+        public Customer? Customer { get; set; }
     }
 }

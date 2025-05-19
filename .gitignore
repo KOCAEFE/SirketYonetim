@@ -1,0 +1,18 @@
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build klasörleri
+bin/
+obj/
+
+# Veritabanı, log, cache
+*.db
+*.log
+*.sqlite
+
+# Diğer
+*.DS_Store
+*.idea/
+*.cache/
