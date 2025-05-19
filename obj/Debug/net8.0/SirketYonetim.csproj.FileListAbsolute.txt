@@ -144,3 +144,10 @@ C:\Users\efe\Desktop\nesneuygulamaları\SirketYonetim\obj\Debug\net8.0\refint\Si
 C:\Users\efe\Desktop\nesneuygulamaları\SirketYonetim\obj\Debug\net8.0\SirketYonetim.pdb
 C:\Users\efe\Desktop\nesneuygulamaları\SirketYonetim\obj\Debug\net8.0\SirketYonetim.genruntimeconfig.cache
 C:\Users\efe\Desktop\nesneuygulamaları\SirketYonetim\obj\Debug\net8.0\ref\SirketYonetim.dll
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.csproj.AssemblyReference.cache
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\scopedcss\bundle\SirketYonetim.styles.css
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\scopedcss\projectbundle\SirketYonetim.bundle.scp.css
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.dll
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\refint\SirketYonetim.dll
+C:\Users\taner\SirketYonetim\obj\Debug\net8.0\SirketYonetim.pdb

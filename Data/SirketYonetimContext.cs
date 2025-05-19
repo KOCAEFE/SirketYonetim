@@ -1,36 +1,35 @@
-﻿namespace SirketYonetim.Data;
-using SirketYonetim.Entities;
+﻿using SirketYonetim.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-
-
-public class SirketYonetimContext:IdentityDbContext<AppUser,AppRole,string>
+namespace SirketYonetim.Data
 {
-    public SirketYonetimContext(DbContextOptions<SirketYonetimContext> options) : base(options) { }
-    
-          public DbSet<Customer> Customers { get; set; }
-          public DbSet<Employee> Employees { get; set; }
-          public DbSet<Order> Orders { get; set; }
-   
-          public DbSet<Product> Products { get; set; }
-          public DbSet<OrderProduct> OrderProducts { get; set; }
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public class SirketYonetimContext : IdentityDbContext<AppUser, AppRole, string>
     {
-        base.OnModelCreating(modelBuilder);
+        public SirketYonetimContext(DbContextOptions<SirketYonetimContext> options) : base(options) { }
 
-        modelBuilder.Entity<OrderProduct>()
-            .HasKey(op => new { op.OrderId, op.ProductId });
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
 
-        modelBuilder.Entity<OrderProduct>()
-            .HasOne(op => op.Order)
-            .WithMany(o => o.OrderProducts)
-            .HasForeignKey(op => op.OrderId);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<OrderProduct>()
-            .HasOne(op => op.Product)
-            .WithMany(p => p.OrderProducts)
-            .HasForeignKey(op => op.ProductId);
+            modelBuilder.Entity<OrderProduct>()
+                .HasKey(op => new { op.OrderId, op.ProductId });
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(op => op.Order)
+                .WithMany(o => o.OrderProducts)
+                .HasForeignKey(op => op.OrderId);
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(op => op.Product)
+                .WithMany(p => p.OrderProducts)
+                .HasForeignKey(op => op.ProductId);
+        }
     }
 }
-

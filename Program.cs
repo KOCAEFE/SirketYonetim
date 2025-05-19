@@ -1,7 +1,30 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SirketYonetim.Data;
+using SirketYonetim.Entities;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<SirketYonetimContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SirketYonetimDb") + ";TrustServerCertificate=True"));
+
+// Identity yapýlandýrmasý
+builder.Services.AddIdentity<AppUser, AppRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+})
+.AddEntityFrameworkStores<SirketYonetimContext>()
+.AddDefaultTokenProviders();
+
+// Dependency Injection
+//builder.Services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
+//builder.Services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
 
 var app = builder.Build();
 
@@ -18,6 +41,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
