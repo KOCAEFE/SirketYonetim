@@ -22,10 +22,6 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 .AddEntityFrameworkStores<SirketYonetimContext>()
 .AddDefaultTokenProviders();
 
-// Dependency Injection
-//builder.Services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
-//builder.Services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
