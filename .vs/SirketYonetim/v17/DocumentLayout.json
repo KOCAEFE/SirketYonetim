@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\efe\\Desktop\\nesneuygulamalar\u0131\\SirketYonetim\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|c:\\users\\efe\\desktop\\nesneuygulamalar\u0131\\sirketyonetim\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|solutionrelative:entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|c:\\users\\efe\\desktop\\nesneuygulamalar\u0131\\sirketyonetim\\entities\\orderproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|solutionrelative:entities\\orderproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|c:\\users\\efe\\desktop\\nesneuygulamalar\u0131\\sirketyonetim\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -13,6 +13,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|c:\\users\\efe\\desktop\\nesneuygulamalar\u0131\\sirketyonetim\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|solutionrelative:entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|c:\\users\\efe\\desktop\\nesneuygulamalar\u0131\\sirketyonetim\\entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{63CE771B-CBA2-42DF-A77E-280AEC9B37F9}|SirketYonetim.csproj|solutionrelative:entities\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,12 +39,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "OrderProduct.cs",
+              "DocumentMoniker": "C:\\Users\\efe\\Desktop\\nesneuygulamalar\u0131\\SirketYonetim\\Entities\\OrderProduct.cs",
+              "RelativeDocumentMoniker": "Entities\\OrderProduct.cs",
+              "ToolTip": "C:\\Users\\efe\\Desktop\\nesneuygulamalar\u0131\\SirketYonetim\\Entities\\OrderProduct.cs",
+              "RelativeToolTip": "Entities\\OrderProduct.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T11:57:02.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Order.cs",
               "DocumentMoniker": "C:\\Users\\efe\\Desktop\\nesneuygulamalar\u0131\\SirketYonetim\\Entities\\Order.cs",
               "RelativeDocumentMoniker": "Entities\\Order.cs",
               "ToolTip": "C:\\Users\\efe\\Desktop\\nesneuygulamalar\u0131\\SirketYonetim\\Entities\\Order.cs",
               "RelativeToolTip": "Entities\\Order.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAwAsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-17T22:41:37.855Z",
               "EditorCaption": ""
