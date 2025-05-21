@@ -13,8 +13,5 @@ namespace SirketYonetim.Models.Customer
 
         [Phone]
         public string PhoneNumber { get; set; }
-
-        [Required]
-        public string AppUserId { get; set; }
     }
 }
