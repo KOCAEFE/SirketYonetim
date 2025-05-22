@@ -28,6 +28,7 @@ namespace SirketYonetim.Services.Concrete
                 Description = o.Description,
                 Address = o.Address,
                 CustomerName = o.Customer.FullName,
+                CustomerId = o.CustomerId,
                 CreatedDate = o.CreatedDate,
                 UpdatedDate = o.UpdatedDate
             }).ToList();
@@ -47,6 +48,7 @@ namespace SirketYonetim.Services.Concrete
                 Description = order.Description,
                 Address = order.Address,
                 CustomerName = order.Customer.FullName,
+                CustomerId = order.CustomerId,
                 CreatedDate = order.CreatedDate,
                 UpdatedDate = order.UpdatedDate
             };
