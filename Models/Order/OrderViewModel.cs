@@ -1,5 +1,4 @@
 ﻿using SirketYonetim.Models.Common;
-using System.ComponentModel.DataAnnotations;
 
 namespace SirketYonetim.Models.Order
 {

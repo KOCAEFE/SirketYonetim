@@ -6,7 +6,7 @@ namespace SirketYonetim.Services.Abstract
     {
         Task<List<CustomerViewModel>> GetAllAsync();
 
-        Task<CustomerViewModel> GetByIdAsync(Guid id);
+        Task<CustomerDetailViewModel> GetByIdAsync(Guid id);
 
         Task AddAsync(CustomerCreateViewModel model);
 

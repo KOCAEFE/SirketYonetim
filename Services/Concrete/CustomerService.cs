@@ -32,14 +32,14 @@ namespace SirketYonetim.Services.Concrete
             }).ToList();
         }
 
-        public async Task<CustomerViewModel> GetByIdAsync(Guid id)
+        public async Task<CustomerDetailViewModel> GetByIdAsync(Guid id)
         {
             var customer = await _customerReadRepository.GetByIdAsync(id);
 
             if (customer == null)
                 throw new Exception("Customer not found");
 
-            return new CustomerViewModel
+            return new CustomerDetailViewModel
             {
                 Id = customer.Id,
                 FullName = customer.FullName,

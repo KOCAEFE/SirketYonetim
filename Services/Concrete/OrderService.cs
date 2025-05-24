@@ -34,14 +34,21 @@ namespace SirketYonetim.Services.Concrete
             }).ToList();
         }
 
-        public async Task<OrderViewModel> GetByIdAsync(Guid id)
+        public async Task<OrderDetailViewModel> GetByIdAsync(Guid id)
         {
-            var order = await _orderReadRepository.GetAll().Include(o => o.Customer).FirstOrDefaultAsync(o => o.Id == id);
+            var order = await _orderReadRepository.GetAll()
+        .Include(o => o.Customer)
+        .Include(o => o.OrderProducts) // Eğer ürünler varsa, ilişkili tabloya göre düzenle
+        .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null)
                 throw new Exception("Order not found");
 
-            return new OrderViewModel
+            // Nominatim ile koordinat alma
+            var nominatim = new NominatimService();
+            var (lat, lon) = await nominatim.GetCoordinatesAsync(order.Address);
+
+            return new OrderDetailViewModel
             {
                 Id = order.Id,
                 OrderName = order.OrderName,
@@ -50,12 +57,21 @@ namespace SirketYonetim.Services.Concrete
                 CustomerName = order.Customer.FullName,
                 CustomerId = order.CustomerId,
                 CreatedDate = order.CreatedDate,
-                UpdatedDate = order.UpdatedDate
+                UpdatedDate = order.UpdatedDate,
+                ProductNames = order.OrderProducts?.Select(p => p.Product.ProductName).ToList() ?? new List<string>(),
+                Latitude = lat,
+                Longitude = lon
             };
         }
 
         public async Task AddAsync(OrderCreateViewModel model)
         {
+            var nominatim = new NominatimService();
+            var (lat, lon) = await nominatim.GetCoordinatesAsync(model.Address);
+
+            if (lat == null || lon == null)
+                throw new Exception("Address verification failed. Please enter a valid address.");
+
             var order = new Order
             {
                 Id = Guid.NewGuid(),

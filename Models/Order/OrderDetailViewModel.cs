@@ -12,6 +12,11 @@ namespace SirketYonetim.Models.Order
 
         public string CustomerName { get; set; }
 
+        public Guid CustomerId { get; set; }
+
         public List<string> ProductNames { get; set; }
+
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
     }
 }
