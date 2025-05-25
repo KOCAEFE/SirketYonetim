@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SirketYonetim.Data;
 using SirketYonetim.Entities;
-using Microsoft.Extensions.DependencyInjection;
 using SirketYonetim.Repositories.Abstract;
 using SirketYonetim.Repositories.Concrete;
 using SirketYonetim.Repositories.Abstract.Customer;

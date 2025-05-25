@@ -1,0 +1,47 @@
+﻿@model SirketYonetim.Models.Order.OrderDetailViewModel
+
+<h2>@Model.OrderName Details</h2>
+<p><strong>Description:</strong> @Model.Description</p>
+<p><strong>Adress:</strong> @Model.Address</p>
+<p><strong>Customer:</strong> @Model.CustomerName</p>
+
+@if (Model.ProductNames != null && Model.ProductNames.Any())
+{
+    <p><strong>Products:</strong></p>
+    <ul>
+        @foreach (var product in Model.ProductNames)
+        {
+            <li>@product</li>
+        }
+    </ul>
+}
+
+<div id="map" style="height: 400px; width: 100%; margin-top: 20px;"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-sA+e2Qkgu8w+fR0LfGYuK2M1QCidttEq6H2HxP69P0k="
+      crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-DcL0bEwtqgqPRiSqtvXreH+X0CJYwqvDHy+6DwX0mDw="
+        crossorigin=""></script>
+
+<script>
+    var lat = @Model.Latitude?.ToString().Replace(',', '.') ?? "null";
+    var lon = @Model.Longitude?.ToString().Replace(',', '.') ?? "null";
+
+    if (lat !== "null" && lon !== "null") {
+        var map = L.map('map').setView([lat, lon], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([lat, lon]).addTo(map)
+            .bindPopup('Order Adress')
+            .openPopup();
+    } else {
+        document.getElementById('map').innerHTML = "<p>No valid coordinates found for the map.</p>";
+    }
+</script>

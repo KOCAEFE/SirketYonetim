@@ -9,8 +9,8 @@ namespace SirketYonetim.Services.Concrete
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        public AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
+        private readonly RoleManager<AppRole> _roleManager;
+        public AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,7 +33,7 @@ namespace SirketYonetim.Services.Concrete
                 var roleExists = await _roleManager.RoleExistsAsync("Customer"); // Register başarılı ise Customer rolü var mı kontrol et
                 if (!roleExists) // eğer yoksa oluştur
                 {
-                    await _roleManager.CreateAsync(new IdentityRole("Customer"));
+                    await _roleManager.CreateAsync(new AppRole { Name = "Customer" });
                 }
 
                 await _userManager.AddToRoleAsync(user, "Customer"); // Customer rolünü ata
@@ -68,7 +68,7 @@ namespace SirketYonetim.Services.Concrete
             var roleExists = await _roleManager.RoleExistsAsync(roleName); // Rol yoksa oluştur
             if (!roleExists)
             {
-                await _roleManager.CreateAsync(new IdentityRole(roleName));
+                await _roleManager.CreateAsync(new AppRole { Name = roleName });
             }
 
             return await _userManager.AddToRoleAsync(user, roleName);
