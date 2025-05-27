@@ -9,5 +9,7 @@ namespace SirketYonetim.Models.Product
         public decimal ProductPrice { get; set; }
 
         public int ProductStock { get; set; }
+
+        public Dictionary<string, decimal> ExchangePrices { get; set; }
     }
 }

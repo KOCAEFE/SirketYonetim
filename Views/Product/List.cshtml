@@ -1,0 +1,110 @@
+﻿@model List<SirketYonetim.Models.Product.ProductViewModel>
+
+@{
+    var allCurrencies = Model
+        .SelectMany(p => p.ExchangePrices != null ? p.ExchangePrices.Keys.ToList() : new List<string>())
+        .Distinct()
+        .OrderBy(c => c)
+        .ToList();
+
+    var badgeColors = new[] { "primary", "secondary", "success", "danger", "warning", "info", "dark" };
+    var defaultCurrencies = new[] { "USD", "EUR" };
+
+    var currencySymbols = new Dictionary<string, string>()
+    {
+        { "TRY", "₺" },{ "USD", "$" },{ "EUR", "€" },{ "GBP", "£" },{ "AUD", "A$" },{ "NOK", "kr" },
+        { "RUB", "kr" },{ "AZN", "₼" },{ "CHF", "CHF" },{ "CNY", "¥" },{ "JPY", "¥" }
+    };
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold text-primary">Products List</h4>
+</div>
+
+<div class="table-responsive shadow-sm rounded">
+    <table class="table table-hover table-striped table-bordered align-middle mb-0">
+        <thead class="table-light text-center align-middle">
+            <tr>
+                <th style="width: 200px;">Product Name</th>
+                <th style="width: 100px;">Stock</th>
+                <th style="width: 150px;">Price (TRY)</th>
+                <th style="width: 500px">
+                    💱 Exchange Rates
+                    <div class="dropdown d-inline ms-2">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Select currencies to show">
+                            <i class="bi bi-gear"></i>
+                        </button>
+                        <ul class="dropdown-menu p-3" style="max-height: 250px; overflow-y: auto;">
+                            @foreach (var currency in allCurrencies)
+                            {
+                                var isChecked = defaultCurrencies.Contains(currency);
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input currency-filter" type="checkbox" value="@currency" id="cur-@currency" @(isChecked ? "checked" : "")>
+                                        <label class="form-check-label" for="cur-@currency">@currency</label>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="text-center align-middle">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductStock</td>
+                    <td>
+                        <span class="badge bg-dark fs-6 px-2 py-1">
+                            @(currencySymbols.ContainsKey("TRY") ? currencySymbols["TRY"] : "") @item.ProductPrice
+                        </span>
+                    </td>
+                    <td>
+                        @if (item.ExchangePrices != null)
+                        {
+                            <div class="d-flex flex-wrap gap-2 exchange-container">
+                                @{
+                                    int i = 0;
+                                }
+                                @foreach (var exchange in item.ExchangePrices)
+                                {
+                                    var colorClass = "bg-" + badgeColors[i++ % badgeColors.Length];
+                                    var visible = defaultCurrencies.Contains(exchange.Key) ? "inline-block" : "none";
+                                    var symbol = currencySymbols.ContainsKey(exchange.Key) ? currencySymbols[exchange.Key] : "";
+                                    <span class="badge @colorClass exchange-item fs-8 px-2 py-1"
+                                          data-currency="@exchange.Key"
+                                          title="@exchange.Key"
+                                          style="display: @visible;">
+                                        (@exchange.Key) @symbol @exchange.Value
+                                    </span>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No exchange info</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.currency-filter').forEach(cb => {
+            cb.addEventListener('change', () => {
+                const selected = Array.from(document.querySelectorAll('.currency-filter:checked'))
+                    .map(cb => cb.value);
+
+                document.querySelectorAll('.exchange-item').forEach(item => {
+                    const cur = item.getAttribute('data-currency');
+                    item.style.display = selected.includes(cur) ? 'inline-block' : 'none';
+                });
+            });
+        });
+    </script>
+}

@@ -30,6 +30,10 @@ namespace SirketYonetim.Data
                 .HasOne(op => op.Product)
                 .WithMany(p => p.OrderProducts)
                 .HasForeignKey(op => op.ProductId);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ProductPrice)
+                .HasColumnType("decimal(18,2)");
         }
     }
 }
