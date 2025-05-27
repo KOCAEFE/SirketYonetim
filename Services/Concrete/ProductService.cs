@@ -26,21 +26,6 @@ namespace SirketYonetim.Services.Concrete
 
             var rates = await _currencyService.GetExchangeRatesAsync("TRY", currencies);
 
-            if (rates == null)
-            {
-                Console.WriteLine("Kur bilgisi alınamadı.");
-            }
-            else
-            {
-                foreach (var c in currencies)
-                {
-                    if (rates.TryGetValue(c, out var r))
-                        Console.WriteLine($"Kur TRY -> {c} : {r}");
-                    else
-                        Console.WriteLine($"Kur bulunamadı: {c}");
-                }
-            }
-
             return products.Select(p =>
             {
                 var exchangePrices = new Dictionary<string, decimal>();
@@ -52,7 +37,6 @@ namespace SirketYonetim.Services.Concrete
                         if (rates.TryGetValue(currency, out decimal rate) && rate > 0)
                         {
                             var convertedPrice = Math.Round(p.ProductPrice * rate, 2);
-                            Console.WriteLine($"Ürün: {p.ProductName} TRY fiyatı: {p.ProductPrice} - {currency} fiyatı: {convertedPrice}");
                             exchangePrices[currency] = convertedPrice;
                         }
                     }
@@ -70,45 +54,6 @@ namespace SirketYonetim.Services.Concrete
                 };
             }).ToList();
         }
-
-
-        //public async Task<List<ProductViewModel>> GetAllAsync()
-        //{
-        //    var products = await _productReadRepository.GetAll().ToListAsync();
-
-        //    // Döviz kurları için örneklem
-        //    var currencies = new[] { "USD", "EUR", "GBP", "AUD", "NOK", "DKK", "AZN", "CHF", "CNY", "JPY" };
-
-        //    var rates = await _currencyService.GetExchangeRatesAsync("TRY", currencies); // Kur bilgileri getirilecek
-
-        //    return products.Select(p =>
-        //    {
-        //        var exchangePrices = new Dictionary<string, decimal>();
-
-        //        if (rates != null && rates.Count > 0)
-        //        {
-        //            foreach (var currency in currencies)
-        //            {
-        //                if (rates.TryGetValue(currency, out decimal rate) && rate > 0)
-        //                {
-        //                    // TRY / rate = o dövizdeki fiyat
-        //                    exchangePrices[currency] = Math.Round(p.ProductPrice * rate, 2);
-        //                }
-        //            }
-        //        }
-
-        //        return new ProductViewModel
-        //        {
-        //            Id = p.Id,
-        //            ProductName = p.ProductName,
-        //            ProductPrice = p.ProductPrice,
-        //            ProductStock = p.ProductStock,
-        //            CreatedDate = p.CreatedDate,
-        //            UpdatedDate = p.UpdatedDate,
-        //            ExchangePrices = exchangePrices
-        //        };
-        //    }).ToList();
-        //}
 
         public async Task<ProductViewModel> GetByIdAsync(Guid id)
         {
