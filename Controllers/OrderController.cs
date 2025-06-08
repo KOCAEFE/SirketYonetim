@@ -13,13 +13,13 @@ namespace SirketYonetim.Controllers
             _orderService = orderService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> List()
         {
             var orders = await _orderService.GetAllAsync();
             return View(orders);
         }
 
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Detail(Guid id)
         {
             var order = await _orderService.GetByIdAsync(id);
             return View(order);
