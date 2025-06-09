@@ -1,0 +1,49 @@
+﻿@using SirketYonetim.Models.Order
+@model IEnumerable<OrderViewModel>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow rounded-4 border-0">
+            <div class="card-body">
+                <h2 class="card-title mb-4">Orders List</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order Name</th>
+                                <th>Customer</th>
+                                <th>Address</th>
+                                <th>Created</th>
+                                <th>Updated</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var o in Model)
+                            {
+                                <tr>
+                                    <td>@o.OrderName</td>
+                                    <td>@o.CustomerName</td>
+                                    <td>@o.Address</td>
+                                    <td>@o.CreatedDate.ToString("g")</td>
+                                    <td>@(o.UpdatedDate.HasValue? o.UpdatedDate.Value.ToString("g") : "-")</td>
+                                    <td class="text-end">
+                                        <a asp-action="Detail" asp-route-id="@o.Id" class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@o.Id" class="btn btn-sm btn-outline-warning me-1">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@o.Id" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
