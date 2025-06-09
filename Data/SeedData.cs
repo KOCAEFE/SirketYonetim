@@ -22,9 +22,10 @@ public static class SeedData
         {
             var user = new AppUser
             {
+                FullName = "Admin",
                 UserName = "admin",
                 Email = adminEmail,
-                FullName = "Admin"
+                ImageUrl = "\\users\\admin.png"
             };
 
             var result = await userManager.CreateAsync(user, "Admin123!");

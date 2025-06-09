@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SirketYonetim.Models.Customer;
 using SirketYonetim.Services.Abstract;
 
 namespace SirketYonetim.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
@@ -13,37 +15,25 @@ namespace SirketYonetim.Controllers
             _customerService = customerService;
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> List()
         {
             var customers = await _customerService.GetAllAsync();
             return View(customers);
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Detail(Guid id)
         {
             var customer = await _customerService.GetByIdAsync(id);
             return View(customer);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CustomerCreateViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            await _customerService.AddAsync(model);
-            return RedirectToAction(nameof(Index));
-        }
-
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var customer = await _customerService.GetByIdAsync(id);
+            if (customer == null) return NotFound();
 
             var updateModel = new CustomerUpdateViewModel
             {
@@ -57,6 +47,7 @@ namespace SirketYonetim.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CustomerUpdateViewModel model)
         {
@@ -64,9 +55,10 @@ namespace SirketYonetim.Controllers
                 return View(model);
 
             await _customerService.UpdateAsync(model);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var customer = await _customerService.GetByIdAsync(id);
@@ -74,11 +66,12 @@ namespace SirketYonetim.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             await _customerService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List));
         }
     }
 }

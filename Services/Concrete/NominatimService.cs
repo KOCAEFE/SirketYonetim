@@ -6,9 +6,9 @@ namespace SirketYonetim.Services.Concrete
     {
         private readonly HttpClient _httpClient;
 
-        public NominatimService()
+        public NominatimService(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
             _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SirketYonetim/1.0");
         }
 
@@ -24,6 +24,7 @@ namespace SirketYonetim.Services.Concrete
             var content = await response.Content.ReadAsStringAsync();
 
             var results = JsonSerializer.Deserialize<List<NominatimResult>>(content);
+
             var first = results?.FirstOrDefault();
 
             if (first != null && double.TryParse(first.lat, out double latitude) && double.TryParse(first.lon, out double longitude))

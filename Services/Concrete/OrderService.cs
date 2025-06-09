@@ -10,11 +10,13 @@ namespace SirketYonetim.Services.Concrete
     {
         protected readonly IOrderReadRepository _orderReadRepository;
         protected readonly IOrderWriteRepository _orderWriteRepository;
+        private readonly NominatimService _nominatimService;
 
-        public OrderService(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository)
+        public OrderService(IOrderReadRepository orderReadRepository, IOrderWriteRepository orderWriteRepository, NominatimService nominatimService)
         {
             _orderReadRepository = orderReadRepository;
             _orderWriteRepository = orderWriteRepository;
+            _nominatimService = nominatimService;
         }
 
         public async Task<List<OrderViewModel>> GetAllAsync()
@@ -37,16 +39,14 @@ namespace SirketYonetim.Services.Concrete
         public async Task<OrderDetailViewModel> GetByIdAsync(Guid id)
         {
             var order = await _orderReadRepository.GetAll()
-        .Include(o => o.Customer)
-        .Include(o => o.OrderProducts) // Eğer ürünler varsa, ilişkili tabloya göre düzenle
-        .FirstOrDefaultAsync(o => o.Id == id);
+                        .Include(o => o.Customer)
+                        .Include(o => o.OrderProducts).ThenInclude(o=>o.Product)
+                        .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null)
                 throw new Exception("Order not found");
 
-            // Nominatim ile koordinat alma
-            var nominatim = new NominatimService();
-            var (lat, lon) = await nominatim.GetCoordinatesAsync(order.Address);
+            var (lat, lon) = await _nominatimService.GetCoordinatesAsync(order.Address);
 
             return new OrderDetailViewModel
             {
@@ -64,10 +64,9 @@ namespace SirketYonetim.Services.Concrete
             };
         }
 
-        public async Task AddAsync(OrderCreateViewModel model)
+        public async Task<Guid> AddAsync(OrderCreateViewModel model)
         {
-            var nominatim = new NominatimService();
-            var (lat, lon) = await nominatim.GetCoordinatesAsync(model.Address);
+            var (lat, lon) = await _nominatimService.GetCoordinatesAsync(model.Address);
 
             if (lat == null || lon == null)
                 throw new Exception("Address verification failed. Please enter a valid address.");
@@ -79,11 +78,20 @@ namespace SirketYonetim.Services.Concrete
                 Description = model.Description,
                 Address = model.Address,
                 CustomerId = model.CustomerId,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                OrderProducts = new List<OrderProduct>
+                {
+                    new OrderProduct
+                    {
+                        ProductId = model.ProductId
+                    }
+                }
             };
 
             await _orderWriteRepository.AddAsync(order);
             await _orderWriteRepository.SaveChangesAsync();
+
+            return order.Id;
         }
 
         public async Task UpdateAsync(OrderUpdateViewModel model)

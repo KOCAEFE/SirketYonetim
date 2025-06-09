@@ -58,6 +58,7 @@ namespace SirketYonetim.Services.Concrete
                 FullName = model.FullName,
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
+                AppUserId = model.AppUserId,
                 CreatedDate = DateTime.Now
             };
 

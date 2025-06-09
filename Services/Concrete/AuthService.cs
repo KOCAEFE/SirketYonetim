@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SirketYonetim.Entities;
-using SirketYonetim.Models.Identity;
+using SirketYonetim.Models.Auth;
+using SirketYonetim.Models.Customer;
 using SirketYonetim.Services.Abstract;
 
 namespace SirketYonetim.Services.Concrete
@@ -10,48 +11,73 @@ namespace SirketYonetim.Services.Concrete
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
-        public AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
+        private readonly ICustomerService _customerService;
+
+        public AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager, ICustomerService customerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _customerService = customerService;
         }
 
-        public async Task<IdentityResult> RegisterAsync(RegisterViewModel model)
+        public async Task<IdentityResult> RegisterAsync(RegisterViewModel model, string roleName)
         {
             var user = new AppUser
             {
                 FullName = model.FullName,
-                UserName = model.UserName,
-                Email = model.Email
+                UserName = model.UserName.ToLower(),
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                ImageUrl = "default.jpg"
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                return result;
 
-            if (result.Succeeded)
+            if (!await _roleManager.RoleExistsAsync(roleName))
+                await _roleManager.CreateAsync(new AppRole { Name = roleName });
+
+            await _userManager.AddToRoleAsync(user, roleName);
+
+            if (roleName.ToLower() == "customer")
             {
-                var roleExists = await _roleManager.RoleExistsAsync("Customer"); // Register başarılı ise Customer rolü var mı kontrol et
-                if (!roleExists) // eğer yoksa oluştur
+                var customerModel = new CustomerCreateViewModel
                 {
-                    await _roleManager.CreateAsync(new AppRole { Name = "Customer" });
-                }
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    AppUserId = user.Id,
+                    PhoneNumber = user.PhoneNumber,
+                    CreatedDate = DateTime.Now
+                };
 
-                await _userManager.AddToRoleAsync(user, "Customer"); // Customer rolünü ata
+                await _customerService.AddAsync(customerModel);
             }
 
             return result;
         }
 
-        public async Task<SignInResult> LoginAsync(LoginViewModel model)
+        public async Task<SignInResult> LoginAsync(LoginViewModel model, params string[] allowedRoles)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
                 return SignInResult.Failed;
 
-            return await _signInManager.PasswordSignInAsync(user.UserName,
-                                                            model.Password,
-                                                            model.RememberMe,
-                                                            lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: true);
+            if (!result.Succeeded)
+                return result;
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var hasAccess = allowedRoles.Any(role => userRoles.Contains(role));
+
+            if (!hasAccess)
+            {
+                await _signInManager.SignOutAsync();
+                return SignInResult.Failed;
+            }
+
+            return result;
         }
 
         public async Task LogoutAsync()
@@ -63,13 +89,10 @@ namespace SirketYonetim.Services.Concrete
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
-                throw new Exception("User not found");
+                throw new ArgumentException("No user found with the provided ID.");
 
-            var roleExists = await _roleManager.RoleExistsAsync(roleName); // Rol yoksa oluştur
-            if (!roleExists)
-            {
+            if (!await _roleManager.RoleExistsAsync(roleName))
                 await _roleManager.CreateAsync(new AppRole { Name = roleName });
-            }
 
             return await _userManager.AddToRoleAsync(user, roleName);
         }

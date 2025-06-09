@@ -8,7 +8,7 @@ namespace SirketYonetim.Services.Abstract
 
         Task<OrderDetailViewModel> GetByIdAsync(Guid id);
 
-        Task AddAsync(OrderCreateViewModel model);
+        Task<Guid> AddAsync(OrderCreateViewModel model);
 
         Task UpdateAsync(OrderUpdateViewModel model);
 

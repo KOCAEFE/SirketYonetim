@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SirketYonetim.Models.Identity;
+using SirketYonetim.Models.Auth;
 
 namespace SirketYonetim.Services.Abstract
 {
     public interface IAuthService
     {
-        Task<IdentityResult> RegisterAsync(RegisterViewModel model);
+        Task<IdentityResult> RegisterAsync(RegisterViewModel model, string roleName);
 
-        Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task<SignInResult> LoginAsync(LoginViewModel model, params string[] allowedRoles);
 
         Task LogoutAsync();
 

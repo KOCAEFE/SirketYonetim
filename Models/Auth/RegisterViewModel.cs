@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SirketYonetim.Models.Identity
+namespace SirketYonetim.Models.Auth
 {
     public class RegisterViewModel
     {
@@ -12,6 +12,10 @@ namespace SirketYonetim.Models.Identity
 
         [Required, EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
 
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SirketYonetim.Models.Identity
+namespace SirketYonetim.Models.Auth
 {
     public class LoginViewModel
     {

@@ -13,5 +13,9 @@ namespace SirketYonetim.Models.Customer
 
         [Phone]
         public string PhoneNumber { get; set; }
+
+        public string AppUserId { get; set; }
+
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

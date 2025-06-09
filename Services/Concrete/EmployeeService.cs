@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SirketYonetim.Entities;
 using SirketYonetim.Models.Employee;
 using SirketYonetim.Repositories.Abstract.Employee;
@@ -8,13 +9,15 @@ namespace SirketYonetim.Services.Concrete
 {
     public class EmployeeService : IEmployeeService
     {
+        protected readonly UserManager<AppUser> _userManager;
         protected readonly IEmployeeReadRepository _employeeReadRepository;
         protected readonly IEmployeeWriteRepository _employeeWriteRepository;
 
-        public EmployeeService(IEmployeeReadRepository employeeReadRepository, IEmployeeWriteRepository employeeWriteRepository)
+        public EmployeeService(IEmployeeReadRepository employeeReadRepository, IEmployeeWriteRepository employeeWriteRepository, UserManager<AppUser> userManager)
         {
             _employeeReadRepository = employeeReadRepository;
             _employeeWriteRepository = employeeWriteRepository;
+            _userManager = userManager;
         }
 
         public async Task<List<EmployeeViewModel>> GetAllAsync()
@@ -54,13 +57,29 @@ namespace SirketYonetim.Services.Concrete
 
         public async Task AddAsync(EmployeeCreateViewModel model)
         {
+            var appUser = new AppUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(appUser, model.Password);
+
+            if (!result.Succeeded)
+                throw new Exception("Failed to create user: " + string.Join(", ", result.Errors.Select(e => e.Description)));
+
+            var roleAssignResult = await _userManager.AddToRoleAsync(appUser, "Employee");
+            if (!roleAssignResult.Succeeded)
+                throw new Exception("Failed to assign role: " + string.Join(", ", roleAssignResult.Errors.Select(e => e.Description)));
+
             var employee = new Employee
             {
                 Id = Guid.NewGuid(),
                 FullName = model.FullName,
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
-                AppUserId = model.AppUserId,
+                AppUserId = appUser.Id,
                 CreatedDate = DateTime.Now
             };
 
