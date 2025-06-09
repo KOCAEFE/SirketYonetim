@@ -1,0 +1,14 @@
+﻿@using SirketYonetim.Models.Customer
+@model CustomerDetailViewModel
+
+<h2 class="mt-3">Delete Customer</h2>
+
+<div class="alert alert-warning mt-3">
+    Are you sure you want to delete the customer named <strong>@Model.FullName</strong>?
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
