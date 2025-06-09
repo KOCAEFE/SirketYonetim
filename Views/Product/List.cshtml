@@ -49,6 +49,7 @@
                         </ul>
                     </div>
                 </th>
+                <th style="width: 250px">Purchasing Process</th>
             </tr>
         </thead>
         <tbody class="text-center align-middle">
@@ -89,15 +90,20 @@
                         }
                     </td>
                     <td>
-                        <form asp-action="Buy" method="post">
+                        <form asp-action="Buy" method="post" class="d-flex flex-column gap-2">
                             <input type="hidden" name="productId" value="@item.Id" />
 
-                            <label for="address">Adres</label>
-                            <input type="text" name="address" id="address" required />
+                            <div class="form-group">
+                                <label for="address-@item.Id" class="form-label">⬐ Delivery Address ⬎</label>
+                                <input type="text" name="address" id="address-@item.Id" class="form-control" placeholder="Enter address..." required />
+                            </div>
 
-                            <button type="submit">Satın Al</button>
+                            <button type="submit" class="btn btn-success mt-2">
+                                <i class="bi bi-cart-check"></i> Buy
+                            </button>
                         </form>
                     </td>
+
                 </tr>
             }
         </tbody>

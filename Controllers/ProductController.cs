@@ -87,8 +87,6 @@ namespace SirketYonetim.Controllers
             };
 
             var newOrderId = await _orderService.AddAsync(model);
-
-            //await _orderService.AddAsync(model);
             return RedirectToAction("Detail", "Order", new { id = newOrderId });
         }
 
