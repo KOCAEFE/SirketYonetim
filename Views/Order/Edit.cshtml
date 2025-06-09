@@ -1,0 +1,51 @@
+﻿@using SirketYonetim.Models.Order
+@model OrderUpdateViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow rounded-4 border-0">
+            <div class="card-body px-5 py-4">
+                <h2 class="text-center mb-4">Edit Order</h2>
+                <div class="text-center text-muted mb-4">
+                    ⌭ Update Your Order
+                </div>
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input asp-for="Id" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="OrderName" class="form-label fw-semibold"></label>
+                        <input asp-for="OrderName" class="form-control" placeholder="Order Name" />
+                        <span asp-validation-for="OrderName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label fw-semibold"></label>
+                        <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label fw-semibold"></label>
+                        <input asp-for="Address" class="form-control" placeholder="Address" />
+                        <span asp-validation-for="Address" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="CustomerId" class="form-label fw-semibold"></label>
+                        <input asp-for="CustomerId" class="form-control" placeholder="Customer ID" />
+                        <span asp-validation-for="CustomerId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-outline-success btn-lg">Save Changes</button>
+                    </div>
+
+                    <div class="text-center">
+                        <a asp-action="List" class="btn btn-outline-secondary btn-sm">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

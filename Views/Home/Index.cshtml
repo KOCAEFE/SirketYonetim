@@ -1,8 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4 mb-4">Welcome to the Company Management System</h1>
+        <p class="lead">This app allows you to easily manage employees, customers, and orders in your company.</p>
+
+        <hr class="my-4" />
+
+        <p class="text-muted">You can start transactions and access your management panel from the top menu.</p>
+
+        <a class="btn btn-outline-success btn-lg mt-3" asp-controller="Employee" asp-action="List">Employees</a>
+        <a class="btn btn-outline-primary btn-lg mt-3 ms-2" asp-controller="Customer" asp-action="List">Customers</a>
+    </div>
 </div>

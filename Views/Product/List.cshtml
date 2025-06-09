@@ -17,8 +17,9 @@
     };
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex flex-column mb-3">
     <h4 class="fw-bold text-primary">Products List</h4>
+    <small class="text-muted">Currently displaying all products in inventory.</small>
 </div>
 
 <div class="table-responsive shadow-sm rounded">
@@ -86,6 +87,16 @@
                         {
                             <span class="text-muted">No exchange info</span>
                         }
+                    </td>
+                    <td>
+                        <form asp-action="Buy" method="post">
+                            <input type="hidden" name="productId" value="@item.Id" />
+
+                            <label for="address">Adres</label>
+                            <input type="text" name="address" id="address" required />
+
+                            <button type="submit">Satın Al</button>
+                        </form>
                     </td>
                 </tr>
             }
