@@ -1,0 +1,61 @@
+﻿@using SirketYonetim.Models.Auth
+@model LoginViewModel
+
+<div class="row align-items-stretch">
+    <div class="col-md-9">
+        <div class="card shadow rounded-4 border-0 h-100">
+            <div class="card-body px-5 py-4">
+                <h2 class="text-center mb-4">Customer Login</h2>
+                <div class="text-center text-muted mb-4">
+                    ⌭ Secure Access
+                </div>
+                <form asp-action="LoginCustomer" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-semibold"></label>
+                        <input asp-for="Email" class="form-control" autocomplete="email" placeholder="Your Email Address" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label fw-semibold"></label>
+                        <input asp-for="Password" type="password" class="form-control" autocomplete="current-password" placeholder="Your Password" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-outline-primary btn-lg">Login</button>
+                    </div>
+
+                    <div class="text-center">
+                        <a href="/auth/register" class="btn btn-outline-secondary btn-sm">Don't have an account?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow rounded-4 border-0 h-100 d-flex flex-column justify-content-center">
+            <img src="/logos/SirketYonetim_Logo.png" class="card-img-top p-4" alt="Logo">
+            <div class="card-body text-center">
+                <h5 class="card-title fw-semibold">⌭ Destek Hatlarımız</h5>
+                <div class="d-flex justify-content-center">
+                    <div style="width: 100%; height: 2px; background-color: #0d6efd; margin: 0.5rem 0; border-radius: 1px;"></div>
+                </div>
+                <p class="card-text text-secondary mb-2 mt-3">
+                    <i class="bi bi-envelope-fill me-2 text-primary"></i> help@sirketyonetim.com
+                </p>
+                <p class="card-text text-secondary">
+                    <i class="bi bi-telephone-fill me-2 text-success"></i> +90 333 444 44 44
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
