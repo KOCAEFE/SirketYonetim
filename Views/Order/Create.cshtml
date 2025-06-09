@@ -1,0 +1,46 @@
+﻿@using SirketYonetim.Models.Order
+@model OrderCreateViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow rounded-4 border-0">
+            <div class="card-body px-5 py-4">
+                <h2 class="text-center mb-2">Create Order</h2>
+                <div class="text-center text-muted mb-2">
+                    ⌭ Order Details
+                </div>
+                <hr class="mb-2" />
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="OrderName" class="form-label fw-semibold"></label>
+                        <input asp-for="OrderName" class="form-control" placeholder="Order Name" />
+                        <span asp-validation-for="OrderName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label fw-semibold"></label>
+                        <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label fw-semibold"></label>
+                        <input asp-for="Address" class="form-control" placeholder="Address" />
+                        <span asp-validation-for="Address" class="text-danger small"></span>
+                    </div>
+                    <hr class="mb-4" />
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-outline-info btn-lg">Create</button>
+                    </div>
+
+                    <div class="text-center">
+                        <a asp-action="List" class="btn btn-outline-secondary btn-sm">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
