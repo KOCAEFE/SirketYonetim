@@ -29,7 +29,7 @@ namespace SirketYonetim.Controllers
             return View(customer);
         }
 
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var customer = await _customerService.GetByIdAsync(id);
@@ -47,7 +47,7 @@ namespace SirketYonetim.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Employee")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CustomerUpdateViewModel model)
         {
